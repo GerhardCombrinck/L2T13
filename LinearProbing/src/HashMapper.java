@@ -9,8 +9,8 @@ public class HashMapper {
 	boolean found = false;
 
 	//Constructor to make a hashMapper object
-	public HashMapper (int startinglength) {
-		this.startinglength = startinglength; 
+	public HashMapper () {
+		this.startinglength = 996; //largest prime under 1000
 		this.keys = new String[startinglength];
 		this.values = new String[startinglength];
 	}
@@ -27,7 +27,7 @@ public class HashMapper {
 	//method to place new items in the map, the key is the length of the string
 	public void addItem(String keyInput, String valueInput) {
 		//get the key
-		int code = keyInput.length();
+		int code = Math.abs(keyInput.hashCode()) % 997;
 		
 		//if the key value is larger than the array, increase the size of the array
 		if (code > keys.length) {
@@ -72,29 +72,32 @@ public class HashMapper {
 	public void removeItem(String keyInput) {
 		//get the key
 		found = false;
-		int code = keyInput.length();
+		int code = Math.abs(keyInput.hashCode()) % 997;
 				
 		//find the index of the key starting from the hash value then delete both the key and the value
 		for(int i = code; i < keys.length; i++) {
-		    if(keys[i].equals(keyInput)){
+			if(keys[i] == null) {
+			}
+			else if(keys[i].equals(keyInput)){
 		    	keys[i] = null;
 		    	values[i] = null;
 		    	found = true;
 		    	System.out.println("Success: '" + keyInput +"' removed.");
 		    }
-		    //if the end of the array is reached loop back to the start to search for the key
-		    if(found == false) {
-				for(i = 0; i < code; i++) {
-					if(keys[i].equals(keyInput)){
-						keys[i] = null;
-				    	values[i] = null;
-				    	found = true;
-				    	System.out.println("Success: '" + keyInput +"' removed.");
-				    }
-				}
-		    }
-
 		}
+		//if the end of the array is reached loop back to the start to search for the key
+	    if(found == false) {
+			for(int i = 0; i < code; i++) {
+				if(keys[i] == null) {
+				}
+				else if(keys[i].equals(keyInput)){
+					keys[i] = null;
+			    	values[i] = null;
+			    	found = true;
+			    	System.out.println("Success: '" + keyInput +"' removed.");
+			    }
+			}
+	    }
 		//if the value in not found alert the user.
 	    if(found == false) {
 	    	System.out.println("Error: '" + keyInput +"' not found.");
