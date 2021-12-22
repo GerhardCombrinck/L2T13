@@ -7,7 +7,7 @@ public class LinearProbing {
 		String userValue = "";
 		
 		//get the hash value
-		int code = userKey.length();
+		int code = Math.abs(userKey.hashCode()) % 997;
 		
 		//start searching using the hash value
 		for(int i = code; i < mapName.keys.length; i++) {
@@ -33,7 +33,7 @@ public class LinearProbing {
 	public static void main(String[] args) {
 		
 		//create a test map
-		HashMapper testHashMap = new HashMapper(6);
+		HashMapper testHashMap = new HashMapper();
 		
 		//add some test values, exceed initial array size to check that array resizing is working
 		testHashMap.printMap();
@@ -62,8 +62,7 @@ public class LinearProbing {
 		
 		//test removal function
 		testHashMap.removeItem("test5");
-		testHashMap.printMap();
-		
 		testHashMap.removeItem("itemthatshouldnotbeinmap");		
+		System.out.println("End");
 	}
 }
