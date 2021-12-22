@@ -6,6 +6,7 @@ public class HashMapper {
 	int startinglength;
 	String[] keys;
 	String[] values;
+	boolean found = false;
 
 	//Constructor to make a hashMapper object
 	public HashMapper (int startinglength) {
@@ -65,5 +66,38 @@ public class HashMapper {
 			break;
 		    }
 		}
+	}
+	
+	//method to remove item (issue - L2T13#1)
+	public void removeItem(String keyInput) {
+		//get the key
+		found = false;
+		int code = keyInput.length();
+				
+		//find the index of the key starting from the hash value then delete both the key and the value
+		for(int i = code; i < keys.length; i++) {
+		    if(keys[i].equals(keyInput)){
+		    	keys[i] = null;
+		    	values[i] = null;
+		    	found = true;
+		    	System.out.println("Success: '" + keyInput +"' removed.");
+		    }
+		    //if the end of the array is reached loop back to the start to search for the key
+		    if(found == false) {
+				for(i = 0; i < code; i++) {
+					if(keys[i].equals(keyInput)){
+						keys[i] = null;
+				    	values[i] = null;
+				    	found = true;
+				    	System.out.println("Success: '" + keyInput +"' removed.");
+				    }
+				}
+		    }
+
+		}
+		//if the value in not found alert the user.
+	    if(found == false) {
+	    	System.out.println("Error: '" + keyInput +"' not found.");
+	    }
 	}
 }
