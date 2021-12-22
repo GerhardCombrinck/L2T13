@@ -2,6 +2,7 @@
 public class LinearProbing {
 
 	//method to search for a key value pair in a hashMap using linear probing technique
+	
 	public static String getValue(HashMapper mapName, String userKey) {
 		String userValue = "";
 		
@@ -59,5 +60,10 @@ public class LinearProbing {
 		System.out.println("Key 'test3' value = " + LinearProbing.getValue(testHashMap,"test3"));
 		System.out.println("Key 'test6' value = " + LinearProbing.getValue(testHashMap,"test6"));
 		
+		//test removal function
+		testHashMap.removeItem("test5");
+		testHashMap.printMap();
+		
+		testHashMap.removeItem("itemthatshouldnotbeinmap");		
 	}
 }
